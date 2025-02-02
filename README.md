@@ -18,5 +18,5 @@ A step-by-step guide to help you install and configure GOAD (Guide to Offensive 
 - IT professionals looking to understand vulnerabilities in Active Directory environments.
 
   ## Acknowledgments
-- Special thanks to the creators of GOAD for their incredible work in providing a hands-on learning platform for Active Directory security.
+- Special thanks to the creators of [GOAD](https://github.com/Orange-Cyberdefense/GOAD) for their incredible work in providing a hands-on learning platform for Active Directory security.
 
