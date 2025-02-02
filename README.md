@@ -5,7 +5,7 @@ A step-by-step guide to help you install and configure GOAD (Guide to Offensive 
 ## ⚡ What’s Included?
 - Detailed instructions for setting up GOAD with VMware on Windows.
 - Commands to simplify deployment process.
-- Troubleshooting tips for common issues.
+- Troubleshooting tips for common issues while installation.
 
 ## 🔧 Why Use This Guide?
 - Beginner-friendly and easy to follow.
