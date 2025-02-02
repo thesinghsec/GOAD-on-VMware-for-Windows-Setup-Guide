@@ -1,0 +1,82 @@
+# Lab Download and Setup
+- Download GOAD Repository in host machine.
+  - Link: [GOAD Lab}(https://github.com/Orange-Cyberdefense/GOAD/tree/main)
+- Navigate to ```..\GOAD-main\ad\GOAD\providers\vmware```.
+
+   💡Use the preferred Virtual environment you like, GOAD has different ways to install in other Virtual environment like Virtual Box, ProxMox, Azure etc.
+
+- Run the cmd below.
+  ```bash
+  vagrant up
+  ```
+  ![image](https://github.com/user-attachments/assets/4c79c942-da8e-4f1b-8c0c-cafa7ff088b3)
+
+- Let the script run, this will install 5 VMs in VMWare.
+- After installation you can verify the installation again by running the same cmd:
+   ```bash
+  vagrant up
+  ```
+   ![image](https://github.com/user-attachments/assets/19ec20c9-4fe0-4546-a1b6-e94e46279d74)
+
+- Above screenshot verify all is well and let’s move to the next step.
+
+## Kali VM:
+- Install a Kali VM or if you have already have kali in VMWare then half job is done.
+- Open Settings of Kali VM by clicking on **Kali VM >**  **VM** **(**in Menu**) > Settings.**
+  ![image](https://github.com/user-attachments/assets/8eff571a-8dbd-4261-8b51-72fe944e60af)
+
+- If yo have only one Network Adapter, click on Add below to add new Network Adapter.
+  ![image](https://github.com/user-attachments/assets/a2b00434-9a76-4261-a35e-73eb676e7af0)
+
+- Click on Network Adapter and click Finish.
+  ![image](https://github.com/user-attachments/assets/51f1e33a-c02e-42d7-bd2f-9a5daff7d4db)
+
+- Now again on opening **Settings,** we have now 2 **Network Adapters**.
+- Click on **Network Adapter 2** and apply **Network Connection >** **Custom: Specific Virtual Network** **>** select **Host-Only.**
+  ![image](https://github.com/user-attachments/assets/db085a49-bc0f-4070-bd2f-1073088f00f9)
+
+- Make sure first **Network Adapter** is set to **NAT.**
+- Now, clone the **GOAD** repository in Kali machine.
+  ```bash
+  git clone https://github.com/Orange-Cyberdefense/GOAD.git
+  ```
+- Navigate to ```../GOAD/ad/GOAD/providers/vmware/inventory``` and change the IP addresses (same changed as above, just changed 56 to 124)
+![image](https://github.com/user-attachments/assets/6de2887c-14d6-4cbf-bb2e-83d003d56e63)
+
+- For limiting errors, also consider changing IPs in Vagrant file.
+  ![image](https://github.com/user-attachments/assets/0f7a01ad-b3c4-4401-82e6-dbbdd3bba356)
+
+- After all done, run the below commands in Kali VM.
+  ```bash
+  sudo apt install python3
+  cd ansible
+  python3 -m virtualenv .venv
+  source .venv/bin/activate
+  python3 -m pip install --upgrade pip
+  python3 -m pip install ansible-core==2.12.6
+  python3 -m pip install pywinrm
+  ansible-galaxy install -r requirements.yml
+  ```
+- Next, run the below command to start building Active Directory environment.
+  ```bash
+  #For VMWare
+  ansible-playbook -i ../ad/GOAD/data/inventory -i ../ad/GOAD/providers/vmware/inventory main.yml
+
+  #For Virtual Box
+  ansible-playbook -i ../ad/GOAD/data/inventory -i ../ad/GOAD/providers/virtualbox/inventory main.yml
+  ```
+- Here I’m using VMWare for installation.
+  ![image](https://github.com/user-attachments/assets/0099ca35-96b1-45c2-ac18-b68e7d5cb07f)
+
+- On running ansible first time, we got following results.
+  ![image](https://github.com/user-attachments/assets/32f0066f-f110-4ced-a982-c6b1ae6cfd8e)
+
+  💡Please refer to Troubleshooting section for resolving the errors and successful installation.
+  
+- On  successful install we will get something like below:
+  ![image](https://github.com/user-attachments/assets/2d492258-424d-414b-8bb4-7f3f992c5f0f)
+
+- On quick SMB scan using CME, we get response back:
+  ![image](https://github.com/user-attachments/assets/609d4dc0-be87-4172-8edf-96d7aa7dd084)
+
+---
